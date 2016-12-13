@@ -35,6 +35,9 @@
 
 __STL_BEGIN_NAMESPACE
 
+template<class _Tp>
+inline void destroy(_Tp* __pointer);
+
 // construct and destroy.  These functions are not part of the C++ standard,
 // and are provided for backward compatibility with the HP STL.  We also
 // provide internal names _Construct and _Destroy that can be used within

@@ -114,7 +114,7 @@ struct _Vector_base
     _Base::_M_end_of_storage = _Base::_M_start + __n;
   }
 
-  ~_Vector_base() { _M_deallocate(_Base::_M_start, _Base::_M_end_of_storage - _Base::_M_start); }
+  ~_Vector_base() { this->_M_deallocate(_Base::_M_start, _Base::_M_end_of_storage - _Base::_M_start); }
 };    
 
 #else /* __STL_USE_STD_ALLOCATORS */
