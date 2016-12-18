@@ -22,12 +22,13 @@ struct TestVector {
     for(i=0;i<50;i++)
       vec.push_back(i);
 
-    for(it=vec.begin();it!=vec.end();it++)
-        Serial.print(*it);
-    
-    Serial.println();
+    //for(it=vec.begin();it!=vec.end();it++)
+    //    Serial.print(*it);
         
-    // FIXME serial << *it << std::endl;
+    for(it=vec.begin();it!=vec.end();it++)
+        serial << *it << std::endl;
+
+    Serial.println();
   }
 
 };
