@@ -491,7 +491,7 @@ struct _Rb_tree_base
 
   _Rb_tree_base(const allocator_type& __a) 
     : _Base(__a) { _Base::_M_header = _Base::_M_get_node(); }
-  ~_Rb_tree_base() { _M_put_node(_Base::_M_header); }
+  ~_Rb_tree_base() { this->_M_put_node(_Base::_M_header); }
 
 };
 
