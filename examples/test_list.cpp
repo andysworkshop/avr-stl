@@ -3,34 +3,33 @@
 
 #include <HardwareSerial.h>
 #include <serstream>
-#include <stack>
-#include <vector>
+#include <list>
 
 /*
- * Test std::stack
+ * Test std::list
  */
 
-struct TestStack {
+struct TestList {
 
   static void RunTest() {
 
     std::ohserialstream serial(Serial);
-    std::stack<int,std::vector<int> > stk;
+    std::list<int> lst;
+    std::list<int>::const_iterator it;
     int i;
 
-    for(i=0;i<20;i++)
-      stk.push(i);
-
-    while(!stk.empty()) {
-      serial << stk.top() << ' ';
-      stk.pop();
-    }
+    for(i=0;i<50;i++)
+      lst.push_back(i);
+ 
+    for(it=lst.begin();it!=lst.end();it++)
+      serial << *it << ' ';
 
     serial << std::endl;
   }
+
 };
 
-TestStack s;
+TestList l;
 
 void setup() {
     Serial.begin(115200);
@@ -38,6 +37,5 @@ void setup() {
 
 void loop() {
     delay(1000);
-    s.RunTest();
+    l.RunTest();
 }
-

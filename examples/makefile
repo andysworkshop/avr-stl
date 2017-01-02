@@ -25,7 +25,14 @@ INCLUDE=-I../include -I$(ARDUINO_CORE_DIR)
 LIBS=-L$(ARDUINO_CORE_DIR)/Arduino_Uno -lunocore
 
 # Source file and application name
-OBJ=test_vector
+#OBJ=test_vector 
+#OBJ=test_string
+#OBJ=test_serial
+#OBJ=test_stack
+#OBJ=test_bitset
+#OBJ=test_list
+#OBJ=test_set
+OBJ=test_map
 TARGET=TestSTL
 
 CFLAGS=-Wall -Wno-unused-local-typedefs -Os -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields\

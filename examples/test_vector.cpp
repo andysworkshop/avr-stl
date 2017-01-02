@@ -1,9 +1,9 @@
 #include <Arduino.h>
+#include <pnew.cpp>
 
 #include <iterator>
 #include <vector>
 #include <serstream>
-#include <pnew.cpp>
 
 /*
  * Test std::vector
@@ -22,13 +22,10 @@ struct TestVector {
     for(i=0;i<50;i++)
       vec.push_back(i);
 
-    //for(it=vec.begin();it!=vec.end();it++)
-    //    Serial.print(*it);
-        
     for(it=vec.begin();it!=vec.end();it++)
-        serial << *it << std::endl;
+        serial << *it << " ";
 
-    Serial.println();
+    serial << "OK" << std::endl;
   }
 
 };
@@ -42,6 +39,5 @@ void setup() {
 void loop() {
     delay(1000);
     v.RunTest();
-    Serial.println("OK");
 }
 
