@@ -24,38 +24,52 @@ INCLUDE=-I../include -I$(ARDUINO_CORE_DIR)
 # Libraries (dependencies: unocore)
 LIBS=-L$(ARDUINO_CORE_DIR)/Arduino_Uno -lunocore
 
-# Source file and application name
-#OBJ=test_vector 
-#OBJ=test_string
-#OBJ=test_serial
-#OBJ=test_stack
-#OBJ=test_bitset
-#OBJ=test_list
-#OBJ=test_set
-OBJ=test_map
-TARGET=TestSTL
+# Executable name
+TARGET=testSTL
 
 CFLAGS=-Wall -Wno-unused-local-typedefs -Os -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields\
--fno-exceptions -ffunction-sections -fdata-sections -fno-use-cxa-atexit -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -MMD -MP -MF"$(OBJ).d" -MT"$(OBJ).d"
+-fno-exceptions -ffunction-sections -fdata-sections -fno-use-cxa-atexit -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) \
+-MMD -MP -MF"$(OBJ).d" -MT"$(OBJ).d"
 
 CLINKFLAGS=-Wl,-Map,$(TARGET).map,--cref -Wl,-gc-sections -mmcu=$(MCU)
 
+vector: OBJ=test_vector
+vector: clean build sizedummy upload
 
+string: OBJ=test_string
+string: clean build sizedummy upload
 
-default: build sizedummy upload 
+serial: OBJ=test_serial
+serial: clean build sizedummy upload
+
+stack: OBJ=test_stack
+stack: clean build sizedummy upload
+
+bitset: OBJ=test_bitset
+bitset: clean build sizedummy upload
+
+list: OBJ=test_list
+list: clean build sizedummy upload
+
+set: OBJ=test_set
+set: clean build sizedummy upload
+
+map: OBJ=test_map
+map: clean build sizedummy upload
 
 build: $(TARGET).hex
-	
+
 $(TARGET).hex: $(TARGET).elf
 	@echo 'Create Flash image (ihex format)'
 	$(AVR_OBJCOPY) -R .eeprom -O ihex $< $@
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-$(TARGET).elf: $(OBJ).o
+$(TARGET).elf: 
+	make -e $(OBJ).o
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	$(CXX) $(CLINKFLAGS) $(INCLUDE) $^ -o $@ $(LIBS)
+	$(CXX) $(CLINKFLAGS) $(INCLUDE) $(OBJ).o -o $@ $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	
