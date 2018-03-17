@@ -95,7 +95,12 @@ namespace std
 		virtual streamsize xsputn(const char_type* s, streamsize n){
 			
 			for(streamsize i=0;i<n;i++)
-				_serial.print(s[i]);
+			{
+				char_type c = s[i];
+				if ( c == '\n' )
+					_serial.print('\r');
+				_serial.print(c);
+			}
 
 			return n;
 		}
@@ -106,8 +111,13 @@ namespace std
 
 		virtual int_type overflow (int_type c = traits::eof()) {
 			if(!traits::eq_int_type(c,traits::eof()))
+			{
+				//_serial.print("[OF]");
+				if ( (char_type)c == '\n' )
+					_serial.print('\r');
 				_serial.print((char_type)c);
 
+			}
 			return traits::not_eof(c);
 		}
 
@@ -138,7 +148,7 @@ namespace std
 	 * Our wrapped arduino class
 	 */
 
-		Tserial _serial;
+		Tserial& _serial;
 	};
 
 

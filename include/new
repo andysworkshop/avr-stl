@@ -12,6 +12,6 @@
 void *operator new(size_t size_);
 void* operator new(size_t size_,void *ptr_);
 void operator delete(void *ptr_);
-
+void operator delete(void *ptr_, unsigned int size);
 
 #endif

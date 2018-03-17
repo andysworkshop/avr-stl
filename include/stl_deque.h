@@ -382,7 +382,7 @@ template <class _Tp, class _Alloc>
 _Deque_base<_Tp,_Alloc>::~_Deque_base() {
   if (_Base::_M_map) {
     _M_destroy_nodes(_M_start._M_node, _M_finish._M_node + 1);
-    _M_deallocate_map(_Base::_M_map, _Base::_M_map_size);
+    this->_M_deallocate_map(_Base::_M_map, _Base::_M_map_size);
   }
 }
 
@@ -394,7 +394,7 @@ _Deque_base<_Tp,_Alloc>::_M_initialize_map(size_t __num_elements)
     __num_elements / __deque_buf_size(sizeof(_Tp)) + 1;
 
   _Base::_M_map_size = max((size_t) _S_initial_map_size, __num_nodes + 2);
-  _Base::_M_map = _M_allocate_map(_Base::_M_map_size);
+  _Base::_M_map = this->_M_allocate_map(_Base::_M_map_size);
 
   _Tp** __nstart = _Base::_M_map + (_Base::_M_map_size - __num_nodes) / 2;
   _Tp** __nfinish = __nstart + __num_nodes;
@@ -427,7 +427,7 @@ void
 _Deque_base<_Tp,_Alloc>::_M_destroy_nodes(_Tp** __nstart, _Tp** __nfinish)
 {
   for (_Tp** __n = __nstart; __n < __nfinish; ++__n)
-    _M_deallocate_node(*__n);
+    this->_M_deallocate_node(*__n);
 }
 
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >

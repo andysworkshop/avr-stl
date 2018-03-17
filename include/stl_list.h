@@ -206,7 +206,7 @@ public:
   }
   ~_List_base() {
     clear();
-    _M_put_node(_Base::_M_node);
+    this->_M_put_node(_Base::_M_node);
   }
 
   void clear();
@@ -253,7 +253,7 @@ _List_base<_Tp,_Alloc>::clear()
     _List_node<_Tp>* __tmp = __cur;
     __cur = (_List_node<_Tp>*) __cur->_M_next;
     _Destroy(&__tmp->_M_data);
-    _M_put_node(__tmp);
+    this->_M_put_node(__tmp);
   }
   _Base::_M_node->_M_next = _Base::_M_node;
   _Base::_M_node->_M_prev = _Base::_M_node;
