@@ -44,18 +44,18 @@ __STL_BEGIN_NAMESPACE
 template <class _Key, class _Tp, 
           class _Compare __STL_DEPENDENT_DEFAULT_TMPL(less<_Key>),
           class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
-class map;
+class Map;
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator==(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                       const map<_Key,_Tp,_Compare,_Alloc>& __y);
+inline bool operator==(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                       const Map<_Key,_Tp,_Compare,_Alloc>& __y);
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator<(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                      const map<_Key,_Tp,_Compare,_Alloc>& __y);
+inline bool operator<(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                      const Map<_Key,_Tp,_Compare,_Alloc>& __y);
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-class map {
+class Map {
 public:
 
 // requirements:
@@ -73,7 +73,7 @@ public:
     
   class value_compare
     : public binary_function<value_type, value_type, bool> {
-  friend class map<_Key,_Tp,_Compare,_Alloc>;
+  friend class Map<_Key,_Tp,_Compare,_Alloc>;
   protected :
     _Compare comp;
     value_compare(_Compare __c) : comp(__c) {}
@@ -102,44 +102,44 @@ public:
 
   // allocation/deallocation
 
-  map() : _M_t(_Compare(), allocator_type()) {}
-  explicit map(const _Compare& __comp,
+  Map() : _M_t(_Compare(), allocator_type()) {}
+  explicit Map(const _Compare& __comp,
                const allocator_type& __a = allocator_type())
     : _M_t(__comp, __a) {}
 
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _InputIterator>
-  map(_InputIterator __first, _InputIterator __last)
+  Map(_InputIterator __first, _InputIterator __last)
     : _M_t(_Compare(), allocator_type())
     { _M_t.insert_unique(__first, __last); }
 
   template <class _InputIterator>
-  map(_InputIterator __first, _InputIterator __last, const _Compare& __comp,
+  Map(_InputIterator __first, _InputIterator __last, const _Compare& __comp,
       const allocator_type& __a = allocator_type())
     : _M_t(__comp, __a) { _M_t.insert_unique(__first, __last); }
 #else
-  map(const value_type* __first, const value_type* __last)
+  Map(const value_type* __first, const value_type* __last)
     : _M_t(_Compare(), allocator_type())
     { _M_t.insert_unique(__first, __last); }
 
-  map(const value_type* __first,
+  Map(const value_type* __first,
       const value_type* __last, const _Compare& __comp,
       const allocator_type& __a = allocator_type())
     : _M_t(__comp, __a) { _M_t.insert_unique(__first, __last); }
 
-  map(const_iterator __first, const_iterator __last)
+  Map(const_iterator __first, const_iterator __last)
     : _M_t(_Compare(), allocator_type()) 
     { _M_t.insert_unique(__first, __last); }
 
-  map(const_iterator __first, const_iterator __last, const _Compare& __comp,
+  Map(const_iterator __first, const_iterator __last, const _Compare& __comp,
       const allocator_type& __a = allocator_type())
     : _M_t(__comp, __a) { _M_t.insert_unique(__first, __last); }
 
 #endif /* __STL_MEMBER_TEMPLATES */
 
-  map(const map<_Key,_Tp,_Compare,_Alloc>& __x) : _M_t(__x._M_t) {}
-  map<_Key,_Tp,_Compare,_Alloc>&
-  operator=(const map<_Key, _Tp, _Compare, _Alloc>& __x)
+  Map(const Map<_Key,_Tp,_Compare,_Alloc>& __x) : _M_t(__x._M_t) {}
+  Map<_Key,_Tp,_Compare,_Alloc>&
+  operator=(const Map<_Key, _Tp, _Compare, _Alloc>& __x)
   {
     _M_t = __x._M_t;
     return *this; 
@@ -169,7 +169,7 @@ public:
       __i = insert(__i, value_type(__k, _Tp()));
     return (*__i).second;
   }
-  void swap(map<_Key,_Tp,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
+  void swap(Map<_Key,_Tp,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
 
   // insert/erase
 
@@ -222,60 +222,60 @@ public:
 
 #ifdef __STL_TEMPLATE_FRIENDS 
   template <class _K1, class _T1, class _C1, class _A1>
-  friend bool operator== (const map<_K1, _T1, _C1, _A1>&,
-                          const map<_K1, _T1, _C1, _A1>&);
+  friend bool operator== (const Map<_K1, _T1, _C1, _A1>&,
+                          const Map<_K1, _T1, _C1, _A1>&);
   template <class _K1, class _T1, class _C1, class _A1>
-  friend bool operator< (const map<_K1, _T1, _C1, _A1>&,
-                         const map<_K1, _T1, _C1, _A1>&);
+  friend bool operator< (const Map<_K1, _T1, _C1, _A1>&,
+                         const Map<_K1, _T1, _C1, _A1>&);
 #else /* __STL_TEMPLATE_FRIENDS */
   friend bool __STD_QUALIFIER
-  operator== __STL_NULL_TMPL_ARGS (const map&, const map&);
+  operator== __STL_NULL_TMPL_ARGS (const Map&, const Map&);
   friend bool __STD_QUALIFIER
-  operator< __STL_NULL_TMPL_ARGS (const map&, const map&);
+  operator< __STL_NULL_TMPL_ARGS (const Map&, const Map&);
 #endif /* __STL_TEMPLATE_FRIENDS */
 };
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator==(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                       const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator==(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                       const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return __x._M_t == __y._M_t;
 }
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator<(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                      const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator<(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                      const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return __x._M_t < __y._M_t;
 }
 
 #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator!=(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                       const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator!=(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                       const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return !(__x == __y);
 }
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator>(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                      const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator>(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                      const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return __y < __x;
 }
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator<=(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                       const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator<=(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                       const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return !(__y < __x);
 }
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline bool operator>=(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                       const map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline bool operator>=(const Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                       const Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   return !(__x < __y);
 }
 
 template <class _Key, class _Tp, class _Compare, class _Alloc>
-inline void swap(map<_Key,_Tp,_Compare,_Alloc>& __x, 
-                 map<_Key,_Tp,_Compare,_Alloc>& __y) {
+inline void swap(Map<_Key,_Tp,_Compare,_Alloc>& __x, 
+                 Map<_Key,_Tp,_Compare,_Alloc>& __y) {
   __x.swap(__y);
 }
 
